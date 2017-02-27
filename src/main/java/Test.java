@@ -13,19 +13,21 @@ public class Test {
 
     public static void main(String[] args) {
 
-        try{
-            URL url = new URL("http://0.0.0.0:7070/sitemap?lang=de");
-            File file = new File(sitemapsFolder);
-            ArchiveUtils.unpackArchive(url, file);
+//        try{
+//            URL url = new URL("http://0.0.0.0:7070/sitemap?lang=de");
+//            File file = new File(sitemapsFolder);
+//            ArchiveUtils.unpackArchive(url, file);
+//
+//
+//        } catch(IOException x) {
+//            x.getStackTrace();
+//        }
 
 
-        } catch(IOException x) {
-            x.getStackTrace();
-        }
+        File newIndexFile = new File(new File(sitemapsFolder), "index.xml");
+        File oldIndexFile = new File(new File(sitemapsFolder), "ch_index.xml");
 
-
-//        File newIndexFile = new File(new File(sitemapsFolder), "index.xml");
-//        XmlUtils.dupa(newIndexFile);
+        XmlUtils.copySitemaps(oldIndexFile, newIndexFile);
 
     }
 

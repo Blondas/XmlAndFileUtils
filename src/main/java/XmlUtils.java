@@ -60,13 +60,18 @@ public class XmlUtils {
 
             NodeList sitemaps = newSitemaps.getDocumentElement().getElementsByTagName("sitemap");
 
-            Document updatedOldSitemaps = addNodes(oldSitemaps.getDocumentElement(), sitemaps);
+//            addNodes(oldSitemaps.getDocumentElement(), sitemaps);
 
+            Element sitemapindex = oldSitemaps.getDocumentElement();
+            for (int i = 0; i < sitemaps.getLength(); i++) {
+                Node nodeImported = oldSitemaps.importNode(sitemaps.item(i), true);
+                sitemapindex.appendChild(nodeImported);
+            }
 
             TransformerFactory
                     .newInstance()
                     .newTransformer()
-                    .transform(new DOMSource(updatedOldSitemaps), new StreamResult(oldSitemapFile));
+                    .transform(new DOMSource(oldSitemaps), new StreamResult(oldSitemapFile));
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
